@@ -63,13 +63,15 @@ async def get_host(bot, message):
     """
     gets IP-address of a site
     """
-    site = " ".join(message.content.split(" ")[1:])
-    res = "\n".join([s[4][0] for s in socket.getaddrinfo(site, "443")])
+    try:
+        site = " ".join(message.content.split(" ")[1:])
+        res = "\n".join([s[4][0] for s in socket.getaddrinfo(site, "443")])
+    except socket.gaierror:
+        res = "no such host"
     await bot.send_message(message.channel, "```" + res + "```")
 
 async def echo(bot, message):
     msg = message.content.split(" ")
-    print(msg)
     if msg[1] == "-t":
         await asyncio.sleep(float(msg[2]))
         await bot.send_message(message.channel, message.author.mention + " " +

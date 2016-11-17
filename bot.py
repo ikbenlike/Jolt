@@ -35,7 +35,6 @@ async def on_message(message):
     runs when a message is received
     """
     config = utils.load_config()
-    #await BOT.change_nickname(message.server.me, None)
     if message.content.startswith(config["prefix"] + "perm"):
         await BOT.send_message(message.channel, str(await utils.has_permission(config, message.author.id)))
     elif message.content.startswith(config["prefix"] + "exit"):
@@ -56,7 +55,6 @@ async def on_message(message):
     elif message.content.startswith(config["prefix"] + "host"):
         await utils.get_host(BOT, message)
     elif message.content.startswith(config["prefix"] + "echo"):
-        print(message.content.split(" ")[1])
         await utils.echo(BOT, message)
     elif message.content.startswith(config["prefix"] + "google"):
         await search.google(BOT, message)
